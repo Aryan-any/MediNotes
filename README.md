@@ -2,24 +2,6 @@
 
 A modern healthcare application that converts raw consultation notes into structured medical summaries, actionable follow-ups, and patient-friendly messages — powered by AI.
 
-## Table of Contents
-- About
-- Features
-- Tech Stack
-- Demo / Example Flow
-- Installation
-  - Backend
-  - Frontend
-- Environment Variables (exact names used in this repository)
-- Usage
-  - Development
-  - Production / Deployment
-- How It Works
-- Security Considerations
-- Potential Enhancements
-- Contributing
-- Contact
-
 ## About
 MediNotes Pro helps clinicians convert consultation notes into:
 - Professional medical summaries for clinical records
