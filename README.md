@@ -1,4 +1,5 @@
-# MediNotes Pro — AI-Powered Medical Consultation Summaries
+# [MediNotes Pro — AI-Powered Medical Consultation Summaries](https://saas-aryan-mishras-projects-46628429.vercel.app/).
+ visit the vercel deployed website by [clicking Here](https://saas-aryan-mishras-projects-46628429.vercel.app/).
 
 A modern healthcare application that converts raw consultation notes into structured medical summaries, actionable follow-ups, and patient-friendly messages — powered by AI.
 
@@ -18,7 +19,6 @@ A modern healthcare application that converts raw consultation notes into struct
 - Security Considerations
 - Potential Enhancements
 - Contributing
-- License
 - Contact
 
 ## About
@@ -34,24 +34,24 @@ MediNotes Pro helps clinicians convert consultation notes into:
 - AI-generated: summary, next steps, patient email
 - JWT-protected routes and Clerk-based user management
 - Streaming AI responses for live feedback
-- Subscription-locked premium features
 
 ## Tech Stack
 - Backend: FastAPI, Pydantic, fastapi-clerk-auth (Clerk integration), OpenAI
 - Frontend: TypeScript (Next.js/React), secure client auth with Clerk, structured forms
-- Deployment: Vercel (frontend + serverless Python backend) or container providers (Docker, AWS App Runner)
+- Deployment: Vercel (frontend + serverless Python backend)
 
-## Demo / Example Flow
+## Demo / Example Flow 
 1. Sign in
 2. Open the consultation form
 3. Enter:
-   - Patient Name: Jane Smith
+   - Patient Name: Aryan Mishra
    - Date: Today
    - Notes: "Patient presents with persistent cough for 2 weeks. No fever. Chest clear. BP 120/80. Likely viral bronchitis. Prescribed rest and fluids. Follow up if symptoms persist beyond a week."
 4. Result:
    - Medical summary
    - Actionable next steps
    - Patient-friendly email draft
+To view the project demo video, [Click Here](https://drive.google.com/file/d/1rpB7A7jbRmEHMSc3wylKgF3M4doPXKCt/view?usp=drive_link)
 
 ## Installation
 Prerequisites:
@@ -81,7 +81,7 @@ Frontend (if separate)
    - npm run dev
 
 ## Environment Variables (exact names used in this repository)
-Set these environment variables exactly as named below. The repo and documentation reference these names in code and deployment instructions.
+Set these environment variables exactly as named below in vercel. The repo and documentation reference these names in code and deployment instructions.
 
 - OPENAI_API_KEY
   - OpenAI API key used by the backend. Example: vercel env add OPENAI_API_KEY
@@ -95,11 +95,6 @@ Set these environment variables exactly as named below. The repo and documentati
 - CLERK_JWKS_URL
   - Clerk JWKS URL used by the backend library to validate JWTs (see api/index.py which uses os.getenv("CLERK_JWKS_URL")).
 
-- DEFAULT_AWS_REGION
-  - (Optional) AWS region used in Docker/App Runner instructions when deploying to AWS.
-
-- AWS_ACCOUNT_ID
-  - (Optional) AWS account id used in deploy steps for AWS App Runner examples.
 
 Notes:
 - Do NOT commit any of these values to source control. Use .env.local for local development and provider-native secret management (Vercel env vars, AWS Secrets Manager, etc.) in production.
@@ -128,6 +123,8 @@ Production / Deployment
 
 - Deploy the full application to Vercel:
   - vercel --prod
+
+You can also visit the vercel deployed website by [clicking Here](https://saas-aryan-mishras-projects-46628429.vercel.app/).
 
 ## How It Works
 1. Structured Input
@@ -163,11 +160,8 @@ For clinical deployment, implement:
 
 ## Contributing
 - Open an issue to discuss changes or file a pull request.
-- Follow code style and run tests before submitting PRs.
 - Include descriptive commit messages and update README/docs as needed.
 
-## License
-Specify your license here (e.g., MIT) and add a LICENSE file at the repo root.
 
 ## Contact
 Maintainer: @Aryan-any
