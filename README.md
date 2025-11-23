@@ -1,185 +1,174 @@
-Healthcare Consultation Assistant
+# MediNotes Pro — AI-Powered Medical Consultation Summaries
 
-A modern healthcare application that helps doctors convert raw consultation notes into structured medical summaries, actionable steps, and patient-friendly communication—powered by AI and built with secure authentication and validated data flows.
+A modern healthcare application that converts raw consultation notes into structured medical summaries, actionable follow-ups, and patient-friendly messages — powered by AI.
 
-What This Application Does
+## Table of Contents
+- About
+- Features
+- Tech Stack
+- Demo / Example Flow
+- Installation
+  - Backend
+  - Frontend
+- Environment Variables (exact names used in this repository)
+- Usage
+  - Development
+  - Production / Deployment
+- How It Works
+- Security Considerations
+- Potential Enhancements
+- Contributing
+- License
+- Contact
 
-The Healthcare Consultation Assistant enables clinicians to:
+## About
+MediNotes Pro helps clinicians convert consultation notes into:
+- Professional medical summaries for clinical records
+- Actionable next steps and follow-up items
+- Patient-friendly email drafts explaining diagnosis and next steps
+- Fast, validated data entry with date pickers and streaming AI output
 
-Input structured consultation details (patient name, date, visit notes)
+## Features
+- Structured consultation input (patient name, date, notes)
+- Pydantic-driven strict validation
+- AI-generated: summary, next steps, patient email
+- JWT-protected routes and Clerk-based user management
+- Streaming AI responses for live feedback
+- Subscription-locked premium features
 
-Generate a professional medical summary for clinical records
+## Tech Stack
+- Backend: FastAPI, Pydantic, fastapi-clerk-auth (Clerk integration), OpenAI
+- Frontend: TypeScript (Next.js/React), secure client auth with Clerk, structured forms
+- Deployment: Vercel (frontend + serverless Python backend) or container providers (Docker, AWS App Runner)
 
-Create clear action items for follow-up and decision-making
+## Demo / Example Flow
+1. Sign in
+2. Open the consultation form
+3. Enter:
+   - Patient Name: Jane Smith
+   - Date: Today
+   - Notes: "Patient presents with persistent cough for 2 weeks. No fever. Chest clear. BP 120/80. Likely viral bronchitis. Prescribed rest and fluids. Follow up if symptoms persist beyond a week."
+4. Result:
+   - Medical summary
+   - Actionable next steps
+   - Patient-friendly email draft
 
-Produce patient-friendly emails explaining diagnosis and next steps
+## Installation
+Prerequisites:
+- Python 3.8+
+- Node.js 16+ (if using the frontend)
+- Vercel CLI (optional for deploy)
 
-Use enhanced forms with date pickers and validated fields
+Backend (example)
+1. Create & activate a virtual environment:
+   - python -m venv .venv
+   - source .venv/bin/activate  (Windows: .venv\Scripts\activate)
+2. Install dependencies:
+   - pip install -r requirements.txt
+   - Ensure requirements.txt includes at minimum:
+     - fastapi
+     - uvicorn
+     - openai
+     - fastapi-clerk-auth
+     - pydantic
+3. Run development server:
+   - uvicorn main:app --reload
 
-View real-time AI-generated streaming output
+Frontend (if separate)
+1. Install node deps:
+   - npm install
+2. Start dev server:
+   - npm run dev
 
-This tool transforms daily documentation into a fast, accurate workflow for medical professionals.
+## Environment Variables (exact names used in this repository)
+Set these environment variables exactly as named below. The repo and documentation reference these names in code and deployment instructions.
 
-Tech Stack
-Backend
+- OPENAI_API_KEY
+  - OpenAI API key used by the backend. Example: vercel env add OPENAI_API_KEY
 
-FastAPI
+- NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+  - Clerk publishable key (client-side). Should be set in .env.local for local development and as a Vercel env var for preview/production.
 
-Pydantic (strict data validation)
+- CLERK_SECRET_KEY
+  - Clerk secret key used by the backend to verify sessions and webhooks.
 
-fastapi-clerk-auth (JWT-authenticated routes)
+- CLERK_JWKS_URL
+  - Clerk JWKS URL used by the backend library to validate JWTs (see api/index.py which uses os.getenv("CLERK_JWKS_URL")).
 
-OpenAI (AI content generation)
+- DEFAULT_AWS_REGION
+  - (Optional) AWS region used in Docker/App Runner instructions when deploying to AWS.
 
-Frontend
-
-Modern UI with structured forms and date inputs
-
-Secure client-side authentication
-
-Smooth streaming responses for AI output
-
-Deployment
-
-Vercel (serverless + frontend hosting)
-
-Installation
-
-Ensure your backend has a requirements.txt with:
-
-fastapi
-uvicorn
-openai
-fastapi-clerk-auth
-pydantic
-
-
-Then install dependencies:
-
-pip install -r requirements.txt
-
-
-Run the development server:
-
-uvicorn main:app --reload
-
-Deploy Your Healthcare App
-
-Deploy the full application:
-
-vercel --prod
-
-
-Ensure your environment variables (OpenAI key, Clerk credentials, JWT secret, etc.) are configured in Vercel.
-
-Testing the Consultation Flow
-
-Visit your production URL
-
-Sign in with your authenticated account
-
-Open the consultation form
-
-Enter a sample input such as:
-
-Example Input
-
-Patient Name: Jane Smith
-
-Date: Today
+- AWS_ACCOUNT_ID
+  - (Optional) AWS account id used in deploy steps for AWS App Runner examples.
 
 Notes:
+- Do NOT commit any of these values to source control. Use .env.local for local development and provider-native secret management (Vercel env vars, AWS Secrets Manager, etc.) in production.
+- Example local file (.env.local) contents used in documentation:
 
-Patient presents with persistent cough for 2 weeks. No fever.
-Chest clear on examination. Blood pressure 120/80.
-Likely viral bronchitis. Prescribed rest and fluids.
-Follow up if symptoms persist beyond another week.
+  NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
+  CLERK_SECRET_KEY=sk_test_...
+  CLERK_JWKS_URL=https://...
+  OPENAI_API_KEY=sk-...
 
+- For server-only secrets (CLERK_SECRET_KEY, CLERK_JWKS_URL, OPENAI_API_KEY) ensure they are not exposed to the browser.
 
-You will receive:
+## Usage
+Development
+- Start backend: uvicorn main:app --reload
+- Start frontend (if applicable): npm run dev
+- Visit the frontend URL, authenticate with Clerk, and use the consultation form.
 
-A professional medical summary
+Production / Deployment
+- Ensure the exact environment variables above are configured in your hosting provider (Vercel, AWS App Runner, etc.).
+- To add to Vercel from your terminal, example commands:
+  - vercel env add OPENAI_API_KEY
+  - vercel env add NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+  - vercel env add CLERK_SECRET_KEY
+  - vercel env add CLERK_JWKS_URL
 
-A clear list of next steps
+- Deploy the full application to Vercel:
+  - vercel --prod
 
-A patient-friendly email draft
-
-How It Works
-
-Your application now provides:
-
+## How It Works
 1. Structured Input
-
-Patient name
-
-Visit date
-
-Consultation notes
-
+   - Patient name, visit date, consultation notes.
 2. Data Validation
-
-All inputs processed through Pydantic models
-
-Automatic type and format checking
-
+   - Inputs validated via Pydantic models for types and formats.
 3. AI-Generated Output
-
-Three clean, distinct sections:
-
-Medical summary
-
-Actionable next steps
-
-Patient email
-
+   - Backend calls OpenAI to produce:
+     - Medical summary
+     - Actionable next steps
+     - Patient-facing email
+   - Streaming responses support progressive rendering in the UI.
 4. Security
+   - Clerk and JWTs used for authentication/authorization (backend uses CLERK_JWKS_URL to configure the guard).
 
-JWT authentication on all protected routes
+## Security Considerations (Important)
+For clinical deployment, implement:
+- HIPAA-compliant infrastructure and processes
+- Encryption at rest and in transit
+- Audit logs for all access and modifications
+- Role-based access controls (doctor, admin, nurse)
+- Data retention and deletion policies
+- Patient consent management
+- Penetration testing and regular security reviews
 
-Clerk-based user management
+## Potential Enhancements
+- Template library for common conditions
+- Voice dictation for notes
+- Multi-language patient communication
+- EHR/EMR integration
+- Analytics dashboard for consultation trends
+- Shared templates for teams
 
-Subscription-locked premium features
+## Contributing
+- Open an issue to discuss changes or file a pull request.
+- Follow code style and run tests before submitting PRs.
+- Include descriptive commit messages and update README/docs as needed.
 
-Security Considerations (Important)
+## License
+Specify your license here (e.g., MIT) and add a LICENSE file at the repo root.
 
-For real clinical deployment, add:
-
-HIPAA compliance workflows
-
-Encryption at rest and in transit
-
-Audit logs for all access
-
-Role-based access control (doctor/admin)
-
-Data retention and deletion policies
-
-Patient consent management
-
-Next Steps
-
-You now have:
-
-✓ Structured medical data input
-
-✓ AI-driven medical content generation
-
-✓ Professional and patient-ready outputs
-
-✓ Secure authentication & subscription controls
-
-✓ A clean, accessible UI for clinicians
-
-Potential Enhancements
-
-Template library for common conditions
-
-Voice dictation support
-
-Multi-language patient communication
-
-EHR/EMR system integration
-
-Analytics dashboard for consultation trends
-
-Shared templates for clinical teams
+## Contact
+Maintainer: @Aryan-any
+Project: MediNotes Pro — AI-Powered Medical Consultation Summaries
