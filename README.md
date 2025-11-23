@@ -1,5 +1,4 @@
 # [MediNotes Pro — AI-Powered Medical Consultation Summaries](https://saas-aryan-mishras-projects-46628429.vercel.app/).
- visit the vercel deployed website by [clicking Here](https://saas-aryan-mishras-projects-46628429.vercel.app/).
 
 A modern healthcare application that converts raw consultation notes into structured medical summaries, actionable follow-ups, and patient-friendly messages — powered by AI.
 
